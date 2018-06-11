@@ -13,10 +13,10 @@ class App extends Component {
           <Navbar />
 
           <Switch>
-            <Route exact path='/' component={Home}>Home</Route>
-            <Route path='/players' component={Players}>Players</Route>
-            <Route path='/teams' component={Teams}>Teams</Route>
-            <Route render={() => <h1 className='text-center'>404</h1>}></Route>
+            <Route exact path='/' component={Home} />
+            <Route path='/players' component={Players} />
+            <Route path='/teams' component={Teams} />
+            <Route render={() => <h1 className='text-center'>404</h1>} />
           </Switch>
         </div>
       </Router>
