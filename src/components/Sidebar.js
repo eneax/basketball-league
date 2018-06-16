@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Route } from 'react-router-dom';
-import slug from 'slug'; // makes the item snake-case
+import slug from 'slug';    // makes the item snake-case
+
+Sidebar.propTypes = {
+  title: PropTypes.string.isRequired,
+  list: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+}
 
 // Create a custom Link component 
 function CustomLink ({ to, children }) {
@@ -10,19 +16,17 @@ function CustomLink ({ to, children }) {
     <Route
       path={to.pathname}
       children={({ match }) => (
-        <li style={{ listStyleType: 'none', fontWeight: match ? 'bold' : 'normal'}}>
-          <Link to={to}>
-            {children}
-          </Link>
+        <li style={{listStyleType: 'none', fontWeight: match ? 'bold' : 'normal'}}>
+          <Link to={to}>{children}</Link>
         </li>
       )}
     />
   )
 }
 
-export default function Sidebar ({ title, list, loading, location, match }) {
+export default function Sidebar ({title, list, loading, location, match}) {
   return loading === true
-    ? <h1>Loading</h1>
+    ? <h1>LOADING</h1>
     : <div>
         <h3 className='header'>{title}</h3>
         <ul className='sidebar-list'>
@@ -30,19 +34,12 @@ export default function Sidebar ({ title, list, loading, location, match }) {
             <CustomLink
               key={item}
               to={{
-                pathname: `${match.url}/${slug(item)}}`,
-                search: location.search,                    // query parameter
-              }}
-            >
-              {item.toUpperCase()}
+                pathname: `${match.url}/${slug(item)}`,
+                search: location.search                       // query parameter
+              }}>
+                {item.toUpperCase()}
             </CustomLink>
           ))}
         </ul>
       </div>
-}
-
-Sidebar.propTypes = {
-  title: PropTypes.string.isRequired,
-  list: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
 }
