@@ -6,6 +6,7 @@ import slug from 'slug'; // makes the item snake-case
 // Create a custom Link component 
 function CustomLink ({ to, children }) {
   return (
+    // we use Route because it has a location checker build-in (it gives us access to "match")
     <Route
       path={to.pathname}
       children={({ match }) => (
@@ -30,7 +31,7 @@ export default function Sidebar ({ title, list, loading, location, match }) {
               key={item}
               to={{
                 pathname: `${match.url}/${slug(item)}}`,
-                search: location.search,
+                search: location.search,                    // query parameter
               }}
             >
               {item.toUpperCase()}

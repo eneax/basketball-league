@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { getPlayers } from '../api';
@@ -11,8 +11,8 @@ export default class Players extends Component {
     loading: true
   }
   componentDidMount () {
-    const { location } = this.props; // it comes with React Router
-
+    const { location } = this.props;      // it comes with React Router
+    
     location.search
       ? this.fetchPlayers(parse(location.search).teamId)
       : this.fetchPlayers()
@@ -24,17 +24,17 @@ export default class Players extends Component {
         players
       })))
   }
-  render() {
+  render () {
     const { players, loading } = this.state;
     const { match, location } = this.props;
 
     return (
-      <div className='container two-columns'>
-        <Sidebar 
+      <div className='container two-column'>
+        <Sidebar
           loading={loading}
           title='Players'
           list={players.map((player) => player.name)}
-          {...this.props} // all the props that have been passed to players, now go also to Sidebar
+          {...this.props}     // all the props (specifically location, match and history) that have been passed to players, now go also to Sidebar
         />
 
         { loading === false && location.pathname === '/players'
