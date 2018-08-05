@@ -24,7 +24,7 @@ function CustomLink ({ to, children }) {
   )
 }
 
-export default function Sidebar ({title, list, loading, location, match}) {
+export default function Sidebar ({ title, list, loading, location, match }) {
   return loading === true
     ? <h1>LOADING</h1>
     : <div>

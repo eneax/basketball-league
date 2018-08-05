@@ -14,12 +14,13 @@ export default class Players extends Component {
     const { location } = this.props;
 
     location.search
-      ? this.fetchPlayers(parse(location.search).teamId)
-      : this.fetchPlayers()
+      ? this.fetchPlayers(parse(location.search).teamId)      // we grab all the players of a specific team
+      : this.fetchPlayers()                                   // we grab ALL the players
   }
+  // 'fetchPlayers' is invoked with a teamId, that we pass to 'getPlayers'
   fetchPlayers = (teamId) => {
     getPlayers(teamId)
-      .then((players) => this.setState(() => ({
+      .then((players) => this.setState(() => ({ 
         loading: false,
         players
       })))
@@ -37,12 +38,13 @@ export default class Players extends Component {
           {...this.props}
         />
 
-        { loading === false && location.pathname === '/players'
+        { 
+          loading === false && location.pathname === '/players'
           ? <div className='sidebar-instruction'>Select a Player</div>
           : null
         }
 
-        <Route path={`${match.url}/:playerId`} render={({match}) => {
+        <Route path={`${match.url}/:playerId`} render={({ match }) => {
           if (loading === true) return null
 
           const {
