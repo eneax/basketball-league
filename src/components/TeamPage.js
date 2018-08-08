@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
-import { getTeamNames, getTeamsArticles } from '../api'
-import TeamLogo from './TeamLogo'
-import Team from './Team'
-import slug from 'slug'
+import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import { getTeamNames, getTeamsArticles } from '../api';
+import TeamLogo from './TeamLogo';
+import Team from './Team';
+import slug from 'slug';
+import Loading from './Loading';
+
 export default class TeamPage extends Component {
   state = {
     loading: true,
@@ -23,20 +25,22 @@ export default class TeamPage extends Component {
     })
   }
   render() {
-    const { loading, teamNames, articles } = this.state
-    const { match } = this.props
-    const { teamId } = match.params
+    const { loading, teamNames, articles } = this.state;
+    const { match } = this.props;
+    const { teamId } = match.params;
+
     if (
       loading === false &&
       teamNames.includes(teamId) === false
     ) {
       return <Redirect to='/' />
     }
+
     return (
       <div>
         <Team id={teamId}>
           {(team) => team === null
-            ? <h1>LOADING</h1>
+            ? <Loading />
             : <div className='panel'>
               <TeamLogo id={teamId} />
               <h1 className='medium-header'>{team.name}</h1>
